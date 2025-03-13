@@ -15,7 +15,7 @@
         <div class="scene">
             <h2>Ujjval Throws Colors</h2>
             <div class="character">
-                <img src="boy.png.png" alt="Ujjval" class="boy face-animation">
+                <img src="boy.png" alt="Ujjval" class="boy face-animation">
             </div>
             <div class="color-splash" id="colorSplashUjjval"></div>
             <button onclick="throwColors('colorSplashUjjval')">Ujjval Colors</button>
@@ -25,7 +25,7 @@
         <div class="scene">
             <h2>Shriya Reacts</h2>
             <div class="character">
-                <img src="girl.png.png" alt="Shriya" class="girl face-animation blushing">
+                <img src="girl.png" alt="Shriya" class="girl face-animation blushing">
             </div>
             <div class="color-splash" id="colorSplashShriya"></div>
             <button onclick="throwColors('colorSplashShriya')">Shriya Reacts</button>
@@ -38,8 +38,6 @@
         <source src="holi-music.mp3" type="audio/mp3">
     </audio>
     <script>
-        let colorCount = 0;
-        
         function throwColors(splashId) {
             let splash = document.getElementById(splashId);
             splash.classList.add("animate-splash");
@@ -63,9 +61,9 @@
                 let colorDot = document.createElement("div");
                 colorDot.classList.add("color-dot");
                 colorDot.style.left = Math.random() * 100 + "vw";
-                colorDot.style.animationDuration = (Math.random() * 2 + 2) + "s";
+                colorDot.style.animationDuration = (Math.random() * 3 + 2) + "s";
                 container.appendChild(colorDot);
-                setTimeout(() => colorDot.remove(), 3000);
+                setTimeout(() => colorDot.remove(), 4000);
             }
         }
 
@@ -107,17 +105,45 @@
             width: 150px;
             position: relative;
         }
-        .face-animation {
-            transition: transform 0.3s ease-in-out;
+        .color-splash {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,0,0,0.8), transparent);
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
         }
-        .blink {
-            transform: scaleY(0.9);
+        .animate-splash {
+            transform: translate(-50%, -50%) scale(1.5);
+            opacity: 1;
         }
-        .smile {
-            filter: brightness(1.2);
+        .color-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            animation: fall 4s linear;
         }
-        .blush {
-            filter: brightness(1.1) saturate(1.5);
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: yellow;
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-in-out;
+        }
+        @keyframes fall {
+            from { transform: translateY(-10vh); }
+            to { transform: translateY(100vh); opacity: 0; }
+        }
+        @keyframes sparkle {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.7; }
+            100% { transform: scale(2); opacity: 0; }
         }
     </style>
 </body>
