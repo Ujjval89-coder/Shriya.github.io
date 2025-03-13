@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Holi, Shriya!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Holi!</h1>
+        <p>Ujjval and Shriya celebrate the festival of colors!</p>
+        
+        <!-- Ujjval Scene -->
+        <div class="scene">
+            <h2>Ujjval Throws Colors</h2>
+            <div class="character">
+                <img src="boy.png" alt="Ujjval" class="boy face-animation">
+            </div>
+            <div class="color-splash" id="colorSplashUjjval"></div>
+            <button onclick="throwColors('colorSplashUjjval')">Ujjval Colors</button>
+        </div>
+        
+        <!-- Shriya Scene -->
+        <div class="scene">
+            <h2>Shriya Reacts</h2>
+            <div class="character">
+                <img src="girl.png" alt="Shriya" class="girl face-animation blushing">
+            </div>
+            <div class="color-splash" id="colorSplashShriya"></div>
+            <button onclick="throwColors('colorSplashShriya')">Shriya Reacts</button>
+        </div>
+        
+        <div id="fallingColors"></div>
+        <div id="sparkles"></div>
+    </div>
+    <audio autoplay loop>
+        <source src="holi-music.mp3" type="audio/mp3">
+    </audio>
+    <script>
+        let colorCount = 0;
+        
+        function throwColors(splashId) {
+            let splash = document.getElementById(splashId);
+            splash.classList.add("animate-splash");
+            setTimeout(() => {
+                splash.classList.remove("animate-splash");
+            }, 2000);
+            createFallingColors();
+            createSparkles();
+            
+            if (splashId === 'colorSplashShriya') {
+                document.querySelector('.girl').classList.add('blush');
+                setTimeout(() => {
+                    document.querySelector('.girl').classList.remove('blush');
+                }, 3000);
+            }
+        }
+
+        function createFallingColors() {
+            let container = document.getElementById("fallingColors");
+            for (let i = 0; i < 20; i++) {
+                let colorDot = document.createElement("div");
+                colorDot.classList.add("color-dot");
+                colorDot.style.left = Math.random() * 100 + "vw";
+                colorDot.style.animationDuration = (Math.random() * 2 + 2) + "s";
+                container.appendChild(colorDot);
+                setTimeout(() => colorDot.remove(), 3000);
+            }
+        }
+
+        function createSparkles() {
+            let container = document.getElementById("sparkles");
+            for (let i = 0; i < 15; i++) {
+                let sparkle = document.createElement("div");
+                sparkle.classList.add("sparkle");
+                sparkle.style.left = Math.random() * 100 + "vw";
+                sparkle.style.top = Math.random() * 100 + "vh";
+                container.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 2000);
+            }
+        }
+
+        function animateFaces() {
+            const faces = document.querySelectorAll('.face-animation');
+            setInterval(() => {
+                faces.forEach(face => {
+                    face.classList.toggle('blink');
+                    face.classList.toggle('smile');
+                });
+            }, 2000);
+        }
+        document.addEventListener("DOMContentLoaded", animateFaces);
+    </script>
+    <style>
+        body {
+            text-align: center;
+            background: #fffbf0;
+            overflow: hidden;
+        }
+        .scene {
+            position: relative;
+            display: inline-block;
+            margin: 20px;
+        }
+        .boy, .girl {
+            width: 150px;
+            position: relative;
+        }
+        .face-animation {
+            transition: transform 0.3s ease-in-out;
+        }
+        .blink {
+            transform: scaleY(0.9);
+        }
+        .smile {
+            filter: brightness(1.2);
+        }
+        .blush {
+            filter: brightness(1.1) saturate(1.5);
+        }
+    </style>
+</body>
+</html>
